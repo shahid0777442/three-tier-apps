@@ -1,7 +1,30 @@
 services:
-  mongo:
+  backend:
+    image: ghcr.io/shahid0777442/three-tier-apps-backend:latest
+    ports:
+      - "5001:5000"
+    environment:
+      MONGO_URL: mongodb://admin:${MONGO_PASSWORD}@mongodb:27017
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  frontend:
+    image: ghcr.io/shahid0777442/three-tier-apps-frontend:latest
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  mongodb:
     image: mongo:7
-    ports: ["27017:27017"]
-    volumes: [mongo-data:/data/db]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
 volumes:
   mongo-data:
