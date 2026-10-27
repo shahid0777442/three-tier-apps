@@ -1,6 +1,6 @@
 services:
   backend:
-    image: ghcr.io/shahid0777442/three-tier-apps-backend:latest
+    image: 260419408312.dkr.ecr.us-east-1.amazonaws.com/three-tier-apps-backend:latest
     ports:
       - "5001:5000"
     environment:
@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    image: ghcr.io/shahid0777442/three-tier-apps-frontend:latest
+    image: 260419408312.dkr.ecr.us-east-1.amazonaws.com/three-tier-apps-frontend:latest
     ports:
       - "3001:3000"
     depends_on:
